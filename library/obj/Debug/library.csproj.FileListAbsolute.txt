@@ -1,6 +1,0 @@
-C:\Users\vlada\source\repos\hada-p3-pr\library\bin\Debug\library.dll
-C:\Users\vlada\source\repos\hada-p3-pr\library\bin\Debug\library.pdb
-C:\Users\vlada\source\repos\hada-p3-pr\library\obj\Debug\library.csproj.AssemblyReference.cache
-C:\Users\vlada\source\repos\hada-p3-pr\library\obj\Debug\library.csproj.CoreCompileInputs.cache
-C:\Users\vlada\source\repos\hada-p3-pr\library\obj\Debug\library.dll
-C:\Users\vlada\source\repos\hada-p3-pr\library\obj\Debug\library.pdb
