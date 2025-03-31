@@ -1,0 +1,41 @@
+﻿## Ignore build results
+bin/
+obj/
+*.user
+*.suo
+
+## VS config folders
+.vs/
+*.dbmdl
+
+## Base de datos local
+App_Data/Database.mdf
+App_Data/Database_log.ldf
+
+## Archivos temporales y logs
+*.log
+*.tmp
+*.bak
+*.cache
+
+## Archivos de configuración específicos de usuario
+*.csproj.user
+*.vbproj.user
+
+## Archivos de publicación
+.publish/
+
+## Archivos de GitHub Copilot si existieran
+.vscode/
+copilot.*
+
+## Archivos generados de diseño y dependencias
+*.designer.cs
+*.dll
+*.exe
+
+## Ignorar paquete NuGet si lo regeneras cada vez
+packages/
+
+## Archivos SQL temporales de diseño (si no los necesitas)
+App_Data/*.sql
