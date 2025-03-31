@@ -1,0 +1,14 @@
+﻿# Ignorar archivos de compilación
+library/bin/
+library/obj/
+library/*.user
+library/*.suo
+
+# Ignorar archivos de depuración
+library/*.pdb
+library/*.cache
+library/*.log
+
+# Ignorar paquetes temporales
+library/packages/
+library/.vs/
