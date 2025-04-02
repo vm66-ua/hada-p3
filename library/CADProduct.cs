@@ -16,7 +16,7 @@ namespace library
 
         public bool Create(ENProduct en)
         {
-            bool hecho;
+            bool hecho = false;
 
             return hecho;
         }
