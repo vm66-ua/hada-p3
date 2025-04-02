@@ -17,8 +17,33 @@ namespace library
         public bool Create(ENProduct en)
         {
             bool hecho = false;
-
+            Products.add(en);
             return hecho;
+        }
+
+        public bool Update(ENProduct en)
+        {
+            return Products.update(en);
+        }
+
+        public bool Read(ENProduct en)
+        {
+            
+        }
+
+        public bool ReadFirst(ENProduct en)
+        {
+
+        }
+
+        public bool ReadNext(ENProduct en)
+        {
+
+        }
+
+        public bool ReadPrev(ENProduct en)
+        {
+
         }
     }
 }
