@@ -91,6 +91,34 @@ namespace library
 
         public bool Update()
         {
+            bool hecho;
+
+            return hecho;
+        }
+
+        public bool Delete(ENProduct en)
+        {
+
+        }
+
+        public bool Read(ENProduct en)
+        {
+
+        }
+
+        public bool ReadFirst(ENProduct en)
+        {
+
+        }
+
+
+        public bool ReadNext(ENProduct en)
+        {
+
+        }
+
+        public bool ReadPrev(ENProduct en)
+        {
 
         }
 
