@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static library.ENProduct;
 namespace library
 {
-    class ENProduct
+    public class ENProduct
     {
         private string _code;
         private string _name;
