@@ -72,7 +72,7 @@ namespace library
                 }
                 catch (Exception excepcion)
                 {
-                    Console.WriteLine("Error en Update: " + excepcion.Message);
+                    Console.WriteLine("Error en la actualización " + excepcion.Message);
                 }
             }
             return hecho;
@@ -105,7 +105,7 @@ namespace library
                 }
                 catch (Exception excepcion)
                 {
-                    Console.WriteLine("Error en Read: " + excepcion.Message);
+                    Console.WriteLine("Error en la lectura " + excepcion.Message);
                 }
             }
             return hecho;
@@ -113,29 +113,126 @@ namespace library
 
         public bool ReadFirst(ENProduct en)
         {
-            bool hecho= false;
-
+            bool hecho = false;
+            using (SqlConnection nueva = new SqlConnection(constring))
+            {
+                string accion = "SELECT TOP 1 * FROM Products ORDER BY Code ASC";
+                SqlCommand comando = new SqlCommand(accion, nueva);
+            
+                try
+                {
+                    nueva.Open();
+                    SqlDataReader lector = comando.ExecuteReader();
+                    
+                    if (lector.Read())
+                    {
+                        hecho = true;
+                        en.Code = lector["Code"].ToString();
+                        en.Name = lector["Name"].ToString();
+                        en.Amount = Convert.ToInt32(lector["Amount"]);
+                        en.Price = Convert.ToSingle(lector["Price"]);
+                        en.Category = Convert.ToInt32(lector["Category"]);
+                        en.CreationDate = Convert.ToDateTime(lector["CreationDate"]);
+                    }
+                }
+                catch (Exception excepcion)
+                {
+                    Console.WriteLine("Error en la lectura del primero " + excepcion.Message);
+                }
+            }
             return hecho;
         }
 
         public bool ReadNext(ENProduct en)
         {
-            bool hecho=false;
+            bool hecho = false;
+            using (SqlConnection nueva = new SqlConnection(constring))
+            {
+                string accion = "SELECT TOP 1 * FROM Products WHERE Code > @Code ORDER BY Code ASC";
+                SqlCommand comando = new SqlCommand(accion, nueva);
+                comando.Parameters.AddWithValue("@Code", en.Code);
 
+                try
+                {
+                    nueva.Open();
+                    SqlDataReader lector = comando.ExecuteReader();
+                    if (lector.Read())
+                    {
+                        en.Code = lector["Code"].ToString();
+                        en.Name = lector["Name"].ToString();
+                        en.Amount = Convert.ToInt32(lector["Amount"]);
+                        en.Price = Convert.ToSingle(lector["Price"]);
+                        en.Category = Convert.ToInt32(lector["Category"]);
+                        en.CreationDate = Convert.ToDateTime(lector["CreationDate"]);
+                        hecho = true;
+                    }
+                    
 
+                }
+                catch (Exception excepcion)
+                {
+                    Console.WriteLine("Error en la lectura del siguiente elemento " + excepcion.Message);
+                }
+            }
             return hecho;
         }
 
         public bool ReadPrev(ENProduct en)
         {
-            bool hecho=false;
+            bool hecho = false;
+            using (SqlConnection nueva = new SqlConnection(constring))
+            {
+                string accion = "SELECT TOP 1 * FROM Products WHERE Code < @Code ORDER BY Code DESC";
+                SqlCommand comando = new SqlCommand(accion, nueva);
+                comando.Parameters.AddWithValue("@Code", en.Code);
 
+                try
+                {
+
+                    nueva.Open();
+                    SqlDataReader lector = comando.ExecuteReader();
+                    if (lector.Read())
+                    {
+                        hecho = true;
+                        en.Code = lector["Code"].ToString();
+                        en.Name = lector["Name"].ToString();
+                        en.Amount = Convert.ToInt32(lector["Amount"]);
+                        en.Price = Convert.ToSingle(lector["Price"]);
+                        en.Category = Convert.ToInt32(lector["Category"]);
+                        en.CreationDate = Convert.ToDateTime(lector["CreationDate"]);
+                    }
+                    
+
+                }
+                catch (Exception excepcion)
+                {
+                    Console.WriteLine("Error en la lectura del elemento anterior " + excepcion.Message);
+                }
+            }
             return hecho;
         }
 
         public bool Delete(ENProduct en) {
             bool hecho = false;
-
+            using (SqlConnection nueva = new SqlConnection(constring))
+            {
+                string accion = "DELETE FROM Products WHERE Code = @Code";
+                SqlCommand comando = new SqlCommand(accion, nueva);
+                comando.Parameters.AddWithValue("@Code", en.Code);
+                try
+                {
+                    nueva.Open();
+                    int filas = comando.ExecuteNonQuery();
+                    if (filas > 0)
+                    {
+                        hecho = true;
+                    }
+                }
+                catch (Exception excepcion)
+                {
+                    Console.WriteLine("Error al eliminar el producto" + excepcion.Message);
+                }
+            }
             return hecho;
 
         }
