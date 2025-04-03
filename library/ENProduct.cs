@@ -21,9 +21,9 @@ namespace library
             get { return _code; }
             set
             { 
-                if(value == null)
+                if(string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentException("El código está vacío o es nulo");
                 }
                 else
                 {
@@ -37,9 +37,9 @@ namespace library
             get { return _name; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentException("El nombre está vacío o es nulo");
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace library
             {
                 if(value < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("La cantidad es negativa");
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace library
             {
                 if(value < 1)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("El precio es menor que 1");
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace library
             {
                 if(value < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(value), "La categoria es menor que 0");
                 }
                 else
                 {
@@ -101,9 +101,9 @@ namespace library
             get { return _creationDate; }
             set
             {
-                if(value == null)
+                if(value == DateTime.MinValue)
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentException("La fecha es incorrecta", nameof(value));
                 }
                 else
                 {
@@ -145,7 +145,7 @@ namespace library
             return hecho;
         }
 
-        public bool Delete(ENProduct en)
+        public bool Delete()
         {
             bool hecho;
             CADProduct cad = new CADProduct();
@@ -153,7 +153,7 @@ namespace library
             return hecho;
         }
 
-        public bool Read(ENProduct en)
+        public bool Read()
         {
             bool hecho;
             CADProduct cad = new CADProduct();
@@ -161,7 +161,7 @@ namespace library
             return hecho;
         }
 
-        public bool ReadFirst(ENProduct en)
+        public bool ReadFirst()
         {
             bool hecho;
             CADProduct cad = new CADProduct();
@@ -170,7 +170,7 @@ namespace library
         }
 
 
-        public bool ReadNext(ENProduct en)
+        public bool ReadNext()
         {
             bool hecho;
             CADProduct cad = new CADProduct();
@@ -178,11 +178,11 @@ namespace library
             return hecho;
         }
 
-        public bool ReadPrev(ENProduct en)
+        public bool ReadPrev()
         {
             bool hecho;
             CADProduct cad = new CADProduct();
-            hecho = ReadPrev(this);
+            hecho = cad.ReadPrev(this);
             return hecho;
         }
 
