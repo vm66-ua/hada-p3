@@ -113,21 +113,30 @@ namespace library
 
         public bool ReadFirst(ENProduct en)
         {
+            bool hecho= false;
 
+            return hecho;
         }
 
         public bool ReadNext(ENProduct en)
         {
+            bool hecho=false;
 
+
+            return hecho;
         }
 
         public bool ReadPrev(ENProduct en)
         {
+            bool hecho=false;
 
+            return hecho;
         }
 
         public bool Delete(ENProduct en) {
-            
+            bool hecho = false;
+
+            return hecho;
 
         }
     }
