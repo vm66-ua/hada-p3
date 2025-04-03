@@ -21,7 +21,15 @@ namespace library
             get { return _code; }
             set
             { 
-                _code = value;
+                if(value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    _code = value;
+
+                }
             }
         }
         public string Name
@@ -29,7 +37,15 @@ namespace library
             get { return _name; }
             set
             {
-                _name = value;
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    _name = value;
+
+                }
             }
         }
         public int Amount
@@ -37,7 +53,15 @@ namespace library
             get { return _amount; }
             set
             {
-                _amount = value;
+                if(value < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    _amount = value;
+
+                }
             }
         }
         public float Price
@@ -45,7 +69,15 @@ namespace library
             get { return _price; }
             set
             {
-                _price = value;
+                if(value < 1)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    _price = value;
+
+                }
             }
         }
         public int Category
@@ -53,7 +85,15 @@ namespace library
             get { return _category; }
             set
             {
-                _category = value;
+                if(value < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    _category = value;
+
+                }
             }
         }
         public DateTime CreationDate
@@ -61,7 +101,15 @@ namespace library
             get { return _creationDate; }
             set
             {
-                _creationDate = value;
+                if(value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    _creationDate = value;
+
+                }
             }
         }
 
@@ -92,34 +140,50 @@ namespace library
         public bool Update()
         {
             bool hecho;
-
+            CADProduct cad = new CADProduct();
+            hecho = cad.Update(this);
             return hecho;
         }
 
         public bool Delete(ENProduct en)
         {
-
+            bool hecho;
+            CADProduct cad = new CADProduct();
+            hecho = cad.Delete(this);
+            return hecho;
         }
 
         public bool Read(ENProduct en)
         {
-
+            bool hecho;
+            CADProduct cad = new CADProduct();
+            hecho = cad.Read(this);
+            return hecho;
         }
 
         public bool ReadFirst(ENProduct en)
         {
-
+            bool hecho;
+            CADProduct cad = new CADProduct();
+            hecho = cad.ReadFirst(this);
+            return hecho;
         }
 
 
         public bool ReadNext(ENProduct en)
         {
-
+            bool hecho;
+            CADProduct cad = new CADProduct();
+            hecho = cad.ReadNext(this);
+            return hecho;
         }
 
         public bool ReadPrev(ENProduct en)
         {
-
+            bool hecho;
+            CADProduct cad = new CADProduct();
+            hecho = ReadPrev(this);
+            return hecho;
         }
 
     }
