@@ -53,7 +53,7 @@ namespace library
             get { return _amount; }
             set
             {
-                if(value < 0)
+                if(value < 1)
                 {
                     throw new ArgumentOutOfRangeException("La cantidad es negativa");
                 }
@@ -85,7 +85,7 @@ namespace library
             get { return _category; }
             set
             {
-                if(value < 0)
+                if(value < 1)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), "La categoria es menor que 0");
                 }
