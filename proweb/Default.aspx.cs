@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,33 +8,41 @@ namespace proweb
 {
     public partial class Default : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ddlCategory.Items.Clear();
+                ddlCategory.Items.Add(new ListItem("Computing", "1"));
+                ddlCategory.Items.Add(new ListItem("Telephony", "2"));
+                ddlCategory.Items.Add(new ListItem("Gaming", "3"));
+                ddlCategory.Items.Add(new ListItem("Home appliances", "4"));
+            }
+        }
+
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             try
-    {
-                
+            {
                 string code = txtCode.Text.Trim();
                 string name = txtName.Text.Trim();
                 int amount = int.Parse(txtAmount.Text);
-                int category = ddlCategory.SelectedIndex; 
+                int category = Convert.ToInt32(ddlCategory.SelectedValue);
                 float price = float.Parse(txtPrice.Text);
                 DateTime creationDate = DateTime.ParseExact(txtCreationDate.Text, "dd/MM/yyyy HH:mm:ss", null);
 
-                
                 if (code.Length == 0 || code.Length > 16)
                 {
                     lblMessage.Text = "Code must be between 1 and 16 characters.";
                     return;
                 }
 
-                
                 string connectionString = ConfigurationManager.ConnectionStrings["BDConexion"].ConnectionString;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    
                     SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM Products WHERE code = @code", connection);
                     checkCmd.Parameters.AddWithValue("@code", code);
                     int count = (int)checkCmd.ExecuteScalar();
@@ -65,8 +70,8 @@ namespace proweb
                     lblMessage.Text = "Product created successfully.";
                 }
             }
-    catch (Exception ex)
-    {
+            catch (Exception ex)
+            {
                 lblMessage.Text = "Error: " + ex.Message;
             }
         }
@@ -76,7 +81,7 @@ namespace proweb
             string code = txtCode.Text.Trim();
             string name = txtName.Text.Trim();
             int amount = int.Parse(txtAmount.Text);
-            int category = ddlCategory.SelectedIndex;
+            int category = Convert.ToInt32(ddlCategory.SelectedValue);
             float price = float.Parse(txtPrice.Text);
             DateTime creationDate = DateTime.ParseExact(txtCreationDate.Text, "dd/MM/yyyy HH:mm:ss", null);
             string connectionString = ConfigurationManager.ConnectionStrings["BDConexion"].ConnectionString;
@@ -100,7 +105,6 @@ namespace proweb
             }
         }
 
-
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             string code = txtCode.Text.Trim();
@@ -117,7 +121,6 @@ namespace proweb
                 lblMessage.Text = rows > 0 ? "Product deleted." : "Product not found.";
             }
         }
-
 
         protected void btnRead_Click(object sender, EventArgs e)
         {
@@ -136,7 +139,7 @@ namespace proweb
                     txtName.Text = reader["name"].ToString();
                     txtAmount.Text = reader["amount"].ToString();
                     txtPrice.Text = reader["price"].ToString();
-                    ddlCategory.SelectedIndex = Convert.ToInt32(reader["category"]);
+                    ddlCategory.SelectedValue = reader["category"].ToString();
                     txtCreationDate.Text = Convert.ToDateTime(reader["creationDate"]).ToString("dd/MM/yyyy HH:mm:ss");
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                     lblMessage.Text = "Product found.";
@@ -148,7 +151,6 @@ namespace proweb
                 }
             }
         }
-
 
         protected void btnReadFirst_Click(object sender, EventArgs e)
         {
@@ -166,7 +168,7 @@ namespace proweb
                     txtName.Text = reader["name"].ToString();
                     txtAmount.Text = reader["amount"].ToString();
                     txtPrice.Text = reader["price"].ToString();
-                    ddlCategory.SelectedIndex = Convert.ToInt32(reader["category"]);
+                    ddlCategory.SelectedValue = reader["category"].ToString();
                     txtCreationDate.Text = Convert.ToDateTime(reader["creationDate"]).ToString("dd/MM/yyyy HH:mm:ss");
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                     lblMessage.Text = "First product loaded.";
@@ -178,7 +180,6 @@ namespace proweb
                 }
             }
         }
-
 
         protected void btnReadPrev_Click(object sender, EventArgs e)
         {
@@ -198,7 +199,7 @@ namespace proweb
                     txtName.Text = reader["name"].ToString();
                     txtAmount.Text = reader["amount"].ToString();
                     txtPrice.Text = reader["price"].ToString();
-                    ddlCategory.SelectedIndex = Convert.ToInt32(reader["category"]);
+                    ddlCategory.SelectedValue = reader["category"].ToString();
                     txtCreationDate.Text = Convert.ToDateTime(reader["creationDate"]).ToString("dd/MM/yyyy HH:mm:ss");
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                     lblMessage.Text = "Previous product loaded.";
@@ -210,7 +211,6 @@ namespace proweb
                 }
             }
         }
-
 
         protected void btnReadNext_Click(object sender, EventArgs e)
         {
@@ -230,7 +230,7 @@ namespace proweb
                     txtName.Text = reader["name"].ToString();
                     txtAmount.Text = reader["amount"].ToString();
                     txtPrice.Text = reader["price"].ToString();
-                    ddlCategory.SelectedIndex = Convert.ToInt32(reader["category"]);
+                    ddlCategory.SelectedValue = reader["category"].ToString();
                     txtCreationDate.Text = Convert.ToDateTime(reader["creationDate"]).ToString("dd/MM/yyyy HH:mm:ss");
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                     lblMessage.Text = "Next product loaded.";
@@ -242,19 +242,5 @@ namespace proweb
                 }
             }
         }
-
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                ddlCategory.Items.Clear();
-                ddlCategory.Items.Add("Computing");
-                ddlCategory.Items.Add("Telephony");
-                ddlCategory.Items.Add("Gaming");
-                ddlCategory.Items.Add("Home appliances");
-            }
-        }
-
     }
 }
